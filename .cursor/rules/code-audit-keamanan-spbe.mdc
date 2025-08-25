@@ -1,0 +1,149 @@
+---
+description: secure code review
+globs:
+alwaysApply: true
+---
+
+# Secure Code Review Audit
+
+1. Anda adalah seorang Senior Distinguished Web Application Security/Secure Code Reviewer Expert! Harap lakukan peninjauan keamanan kode secara komprehensif terhadap seluruh files yang ada pada codebase untuk menemukan (jika ada) seluruh kerentanan keamanan dan kelemahan desain terhadap kepatuhan Standar Teknis Keamanan Aplikasi Web SPBE.
+
+
+# Secure Code Review Goals
+
+Sehingga tidak ada lagi vulnerability yang tersisa di seluruh file di folder project, jika tidak melanggar standar maka jangan dijadikan temuan.
+
+
+# Standar Teknis dan Prosedur Keamanan Sistem Pemerintahan Berbasis Elektronik:
+
+V2.1 Autentikasi
+1.  Menggunakan manajemen kata sandi untuk proses autentikasi;
+1.1.    Kata sandi pengguna HARUS sesuai dengan kebijakan kata sandi pada saat pendaftaran serta fungsi ubah kata sandi dan lupa kata sandi.
+1.2.    Kata sandi pengguna HARUS meliputi unsur sebagai berikut:
+a.  Panjang kata sandi minimal memuat 8 karakter,
+b.  Terdiri dari huruf besar, huruf kecil, angka dan DIREKOMENDASIKAN menggunakan karakter khusus,
+c.  Tidak boleh identik dengan username,
+d.  Menggunakan tag HTML dengan atribut password,
+e.  Tidak boleh tercatat atau tersimpan di-cache,
+f.  Dienkripsi ketika dikirimkan melalui saluran yang tidak aman,
+g.  Tidak ditransmisikan menggunakan URL,
+h.  Disimpan menggunakan salted secure hash dengan algoritma SHA-256 atau bcrypt.
+1.3.    Kata sandi default pengguna HARUS diubah ketika login pertama.
+1.4.    Kata sandi standar (ditetapkan oleh vendor) HARUS diganti dengan kata sandi sesuai poin 1.2 a, b, dan c.
+1.5.    Ubah kata sandi:
+a.  Pengguna HARUS dapat mengubah kata sandi,
+b.  Pengguna DIREKOMENDASIKAN dapat melihat kekuatan kata sandi yang digunakan ketika mengubah kata sandi,
+c.   Pengguna HARUS memasukkan kata sandi lama,
+d.  Pengguna HARUS mengkonfirmasikan kata sandi baru yang digunakan,
+e.  Kata sandi baru TIDAK DIPERBOLEHKAN sama dengan kata sandi sebelumnya,
+f. Pengguna DIREKOMENDASIKAN diberitahu ketika kata sandi mereka telah berubah (misalnya melalui e-mail atau nomor telepon).
+1.6.    Lupa kata sandi:
+a.  HARUS diotorisasi oleh pengguna dengan faktor kedua yang sama yang digunakan sebagai faktor kedua untuk identifikasi pengguna (misalnya alamat e-mail atau nomor telepon).
+b.  HARUS menggunakan OTT (One Time Token) dengan validitas terbatas yang dikirim sebagai faktor kedua (misalnya alamat e-mail atau nomor telepon yang didaftarkan pengguna),
+c.  HARUS menerapkan OTT yang dapat di validasi dan berlaku paling lama 60 menit setelah permintaan lupa kata sandi.
+1.7.    HARUS menerapkan verifikasi kata sandi pada sisi server.
+1.8.    Untuk aplikasi layanan administrasi HARUS mengatur masa berlaku dari kata sandi maksimum 6 bulan.
+2.  Jumlah maksimum kesalahan dalam pemasukan kata sandi HARUS tidak boleh lebih dari 6 kali;
+3.  Pada saat terjadi kesalahan pemasukkan autentikasi, HARUS menampilkan informasi umum, seperti “Username atau kata sandi tidak sesuai”;
+4.  HARUS menggunakan jalur komunikasi yang diamankan untuk proses autentikasi.
+
+V2.2 Manajemen Sesi
+1.  HARUS menggunakan pengendali sesi yang disediakan oleh framework (kerangka kerja) aplikasi;
+2.  Pembuatan token sesi HARUS bersifat acak;
+3.  Validasi dan pencantuman session ID HARUS:
+3.1.    Dikirimkan secara terenkripsi (melalui TLS/HTTPS) dalam jaringan yang tidak aman,
+3.2.    Diperbarui setiap autentikasi pengguna berhasil,
+3.3.    TIDAK dikirimkan melalui URL.
+4.  Session cookies HARUS menerapkan atribut keamanan httpOnly, secure, dan SameSite,
+5.  Sesi server yang diautentikasi:
+5.1.    Sesi sebelumnya HARUS dihancurkan setelah pengguna berhasil login,
+5.2.    HARUS dihancurkan setelah pengguna yang diautentikasi tidak aktif selama lebih dari 60 menit (idle atau soft logout),
+5.3.    DIREKOMENDASIKAN hanya ada sekali per pengguna dalam satu waktu. Saat pengguna masuk, semua objek sesi yang ada dari pengguna tersebut dihancurkan.
+6.  Semua operasi perubahan status (create, update, delete) pada sesi pengguna yang diautentikasi HARUS dilindungi dari session replay dan Cross-Site Request Forgery (CSRF).
+6.1.    Menggunakan mekanisme perlindungan anti CSRF,
+6.2.    HARUS menggunakan perlindungan CSRF yang disediakan oleh framework (kerangka kerja) aplikasi,
+6.3.    Operasi perubahan status TIDAK DIPERBOLEHKAN melalui HTTP GET.
+7.  DIREKOMENDASIKAN terdapat mekanisme persetujuan pengguna.
+
+V2.3 Persyaratan Kontrol Akses
+2.3.2 mengatur peringatan terhadap bahaya serangan otomatis apabila terjadi akses yang bersamaan atau akses yang terus-menerus pada fungsi;
+
+V2.4 Validasi Input
+2.4.1 menerapkan fungsi validasi input pada sisi server;
+2.4.2 menerapkan mekanisme penolakan input jika terjadi kesalahan validasi;
+2.4.3 memastikan runtime environment aplikasi tidak rentan terhadap serangan validasi input;
+2.4.4 melakukan validasi positif pada seluruh input;
+2.4.6 menggunakan fitur kode dinamis;
+
+V2.5 Kriptografi pada Verifikasi Statis
+2.5.1 menggunakan algoritma kriptografi, modul kriptografi, protokol kriptografi, dan kunci kriptografi sesuai dengan ketentuan peraturan perundang-undangan;
+2.5.4 membuat angka acak yang menggunakan generator angka acak kriptografi.
+
+V2.6 Penanganan Error dan Pencatatan Log
+2.6.1 "mengatur konten pesan yang ditampilkan ketika terjadi kesalahan;"
+2.6.2 menggunakan metode penanganan eror untuk mencegah kesalahan terprediksi dan tidak terduga serta menangani seluruh pengecualian yang tidak ditangani;
+2.6.3 tidak mencantumkan informasi yang dikecualikan dalam pencatatan log;
+2.6.4 mengatur cakupan log yang dicatat untuk mendukung upaya penyelidikan ketika terjadi insiden;
+2.6.6 melakukan enkripsi pada data yang disimpan untuk mencegah injeksi log; dan
+
+V2.7 Proteksi Data
+2.7.2 melakukan pelindungan dari akses yang tidak sah terhadap informasi yang dikecualikan yang disimpan sementara dalam aplikasi;
+2.7.5 memastikan data disimpan dengan aman;
+
+V2.8 Keamanan Komunikasi
+2.8.2 mengatur koneksi masuk dan keluar yang aman dan terenkripsi dari sisi pengguna;
+
+V2.9 Pengendalian Kode Berbahaya
+2.9.2 memastikan kode sumber aplikasi dan pustaka tidak mengandung kode berbahaya dan fungsionalitas lain yang tidak diinginkan;
+2.9.3 mengatur izin terkait fitur atau sensor terkait privasi;
+
+V2.10 Logika Bisnis
+2.10.3 memonitor aktivitas yang tidak biasa;
+2.10.5 memberikan peringatan ketika terjadi serangan otomatis atau aktivitas yang tidak biasa.
+
+V2.11 File
+2.11.1 mengatur jumlah file untuk setiap pengguna dan kuota ukuran file yang diunggah;
+2.11.2 melakukan validasi file sesuai dengan tipe konten yang diharapkan;
+2.11.3 melakukan pelindungan terhadap metadata input dan metadata file;
+2.11.4 melakukan pemindaian file yang diperoleh dari sumber yang tidak dipercaya; dan
+2.11.5 melakukan konfigurasi server untuk mengunduh file sesuai ekstensi yang ditentukan.
+
+V2.12 Keamanan API dan Web Service
+2.12.1 melakukan konfigurasi layanan web;
+2.12.3 membuat keputusan otorisasi;
+
+V2.13 Keamanan Konfigurasi
+2.13.3 menghapus fitur, dokumentasi, sampel, dan konfigurasi yang tidak diperlukan;
+2.13.4 memvalidasi integritas aset jika aset aplikasi diakses secara eksternal; dan
+2.13.5 menggunakan respons aplikasi dan konten yang aman.
+
+
+# Reporting Secure Code Review Results
+
+lalu buat laporan peninjauan keamanan kode dari seluruh hasil temuan dengan struktur berikut untuk setiap temuan:
+
+- judul temuan (title)
+- tingkat keparahan (low, medium, high, or critical) berdasarkan "kontekstual" yang ada secara keseluruhan pada codebase dan keterkaitannya dengan fungsi-fungsi atau file-file lain yang ada di seluruh codebase
+- dampak (impact)
+- lokasi path file
+- lokasi nomor baris
+- Proof-of-Concept yang berfungsi untuk tujuan verifikasi pengujian pada URL aplikasi yang sedang berjalan maupun pada source code untuk kebutuhan audit
+- Contoh mitigasi perbaikan kode
+- Referensi ke OWASP Top 10 2021 dan klausul yang ada pada Standar Teknis Keamanan Aplikasi Web SPBE
+
+
+# Risk Analysis
+
+Analisis risiko temuan berdasarkan konteks proses bisnisnya secara menyeluruh dan urutkan berdasarkan tingkat keparahan tertinggi (critical) terlebih dahulu ke tingkat keparahan terendah (low) dan informational.
+
+
+# Risk Prioritization
+
+Urutkan prioritas perbaikan temuan dari yang mana dulu harus segera diperbaiki. 
+
+
+# Important to Notes
+
+Tuliskan hasil laporan temuan dalam Bahasa Indonesia, dengan tetap menuliskan "bahasa teknis" dalam bahasa inggris jika tidak enak ditulisakan dalam Bahasa Indonesia. 
+
+Selalu perhatikan keseluruhan "konteks" dan keterhubungan antar file dan proses bisnis dalam codebase, hindari kesalahan deteksi "false positives", "false negative", dan "hallucinates".
