@@ -1,7 +1,7 @@
 ---
 description: secure code review
 globs:
-alwaysApply: false
+alwaysApply: true
 ---
 
 OBJECTIVE:
