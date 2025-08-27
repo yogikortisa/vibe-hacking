@@ -1,0 +1,30 @@
+{
+	"servers": {
+		"browsermcp": {
+			"type": "stdio",
+			"command": "npx",
+			"args": [
+				"@browsermcp/mcp@latest"
+			]
+		},
+		"curlmcp": {
+			"type": "stdio",
+			"command": "npx",
+			"args": [
+				"-y",
+				"@mcp-get-community/server-curl"
+			]
+		},
+		"burpmcp": {
+			"type": "stdio",
+			"command": "java",
+			"args": [
+				"-jar",
+				"d:/mcp-proxy.jar",
+				"--sse-url",
+				"http://127.0.0.1:9876"
+			]
+		}
+	},
+	"inputs": []
+}

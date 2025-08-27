@@ -1,0 +1,31 @@
+{
+    "mcpServers": {
+        "defectdojo": {
+            "command": "uvx",
+            "args": [
+                "defectdojo-mcp"
+            ],
+            "env": {
+                "DEFECTDOJO_API_TOKEN": "YOUR-DEFECTDOJO_API_BASE",
+                "DEFECTDOJO_API_BASE": "YOU-DEFECTDOJO-URL"
+            }
+        },
+        "curlmcp": {
+            "runtime": "node",
+            "command": "npx",
+            "args": [
+                "-y",
+                "@mcp-get-community/server-curl"
+            ]
+        },
+        "burpmcp": {
+            "command": "java",
+            "args": [
+                "-jar",
+                "d:/mcp-proxy.jar",
+                "--sse-url",
+                "http://127.0.0.1:9876"
+            ]
+        }
+    }
+}
