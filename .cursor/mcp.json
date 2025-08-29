@@ -26,6 +26,15 @@
                 "--sse-url",
                 "http://127.0.0.1:9876"
             ]
+        },
+        "semgrep": {
+            "command": "uvx",
+            "args": [
+                "semgrep-mcp"
+            ],
+            "env": {
+                "SEMGREP_APP_TOKEN": "<YOUR-SEMGREP-TOKEN>"
+            }
         }
     }
 }
