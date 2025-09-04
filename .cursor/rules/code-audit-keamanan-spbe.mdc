@@ -1,5 +1,5 @@
 ---
-description: secure code review
+description: manual full coverage comprehensive secure code review
 globs:
 alwaysApply: true
 ---
@@ -120,7 +120,7 @@ V2.13 Keamanan Konfigurasi
 
 # Reporting Secure Code Review Results
 
-lalu buat laporan peninjauan keamanan kode dari seluruh hasil temuan dengan struktur berikut untuk setiap temuan:
+lalu buat laporan peninjauan keamanan kode dari seluruh hasil temuan save dalam markdown file (.md) dengan daftar isi untuk setiap findings agar memudahkan navigasi, dengan struktur sebagai berikut untuk setiap temuan:
 
 - judul temuan (title)
 - tingkat keparahan (low, medium, high, or critical) berdasarkan "kontekstual" yang ada secara keseluruhan pada codebase dan keterkaitannya dengan fungsi-fungsi atau file-file lain yang ada di seluruh codebase
