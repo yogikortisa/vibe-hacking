@@ -27,6 +27,12 @@
                 "http://127.0.0.1:9876"
             ]
         },
+        "browsermcp": {
+            "command": "npx",
+            "args": [
+                "@browsermcp/mcp@latest"
+            ]
+        },
         "semgrep": {
             "command": "uvx",
             "args": [
